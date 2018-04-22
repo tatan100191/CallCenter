@@ -5,10 +5,15 @@ import java.util.Observable;
 public class Call extends Observable implements Runnable{
 	private int duration;
 	private int id;
+	
+	public Call(int duration, int id) {
+		this.duration = duration;
+		this.id = id;
+	}
 	public void run() {
 		try {
 			System.out.println("Start call");
-			Thread.sleep(this.duration);
+			Thread.sleep(this.duration * 1000);
 			setChanged();
 			notifyObservers(id);
 			System.out.println("End call");
