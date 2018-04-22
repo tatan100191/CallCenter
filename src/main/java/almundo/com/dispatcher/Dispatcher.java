@@ -1,18 +1,21 @@
 package almundo.com.dispatcher;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import almundo.com.model.Call;
 import almundo.com.model.Employee;
 
-public abstract class Dispatcher {
+public abstract class Dispatcher implements Observer, Runnable {
 	
 	private Dispatcher dispatcher;
-	private List<Employee> employees;
+	private Call call;
+	private boolean callInQueue;
 	
-	public Boolean dispatchCall(Call call, Boolean callInQueue){
-		return dispatcher.dispatchCall(call, callInQueue);
-	}
+	public abstract Boolean dispatchCall();
+	
+	public abstract void addQueueCall(List<Call> call2);
 	
 	public void setNext(Dispatcher dispatcher) {
 		this.dispatcher = dispatcher; 
@@ -22,12 +25,28 @@ public abstract class Dispatcher {
 		return this.dispatcher; 
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+	public Dispatcher getDispatcher() {
+		return dispatcher;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
+	public void setDispatcher(Dispatcher dispatcher) {
+		this.dispatcher = dispatcher;
+	}
+
+	public Call getCall() {
+		return call;
+	}
+
+	public void setCall(Call call) {
+		this.call = call;
+	}
+
+	public boolean isCallInQueue() {
+		return callInQueue;
+	}
+
+	public void setCallInQueue(boolean callInQueue) {
+		this.callInQueue = callInQueue;
 	}
 
 }
