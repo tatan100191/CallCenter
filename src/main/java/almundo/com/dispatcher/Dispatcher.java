@@ -18,7 +18,7 @@ public abstract class Dispatcher implements Observer, Runnable {
 	private Employee working = null;
 	private List<Employee> employees = new ArrayList<Employee>();
 	
-	public abstract void dispatchCall();
+	public abstract Boolean dispatchCall();
 	
 	public void setNext(Dispatcher dispatcher) {
 		this.dispatcher = dispatcher; 

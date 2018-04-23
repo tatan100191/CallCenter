@@ -35,11 +35,9 @@ public class DispatcherTest {
 		dispatcherDirector.setDirectors(fillListDirectors());
 		
 		IncomingCalls incomingCalls = IncomingCalls.getInstance();
-		
 		incomingCalls.setIncomingCalls(fillListCalls());
 		int i = 0;
 		while(i < 10){
-			dispatcherOperator.setCallInQueue(false);
 			Thread thread = new Thread(dispatcherOperator);
 			thread.start();
 			thread.join();

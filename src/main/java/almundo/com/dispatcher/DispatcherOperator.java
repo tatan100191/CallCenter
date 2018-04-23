@@ -14,10 +14,10 @@ public class DispatcherOperator extends Dispatcher{
 	
 	/**
      * metodo principal de la cadena de responsabilidad el cual tiene la función de asignar la llamada 
-     * a un empleado y realizar 
-     * @param o El objeto observable, arg argumentos que se deseen enviar
+     * a un empleado y realizar la respectiva llamada, este metodo se encuentra en toda la jerarquia de dispatchers
+     * 
      */
-	public void dispatchCall(){
+	public Boolean dispatchCall(){
 		getCallOfIncomingCalls();
 		for(Operator employee: operators){
 				if (employee.getCall() == null){
@@ -25,9 +25,11 @@ public class DispatcherOperator extends Dispatcher{
 					employee.setCall(call);
 					System.out.println(employee.getName() + " answer call "+ call.getId());
 					employee.answerCall();
+					return true;
 				}
 		}
-		dispatcher.setCall(this.getCall());
+		dispatcher.setCall(call);
+		return dispatcher.dispatchCall();
 	}
 	
 
@@ -61,9 +63,8 @@ public class DispatcherOperator extends Dispatcher{
 	}
 	
 	/**
-     * metodo propio de la clase Observer en la cual se realiza la actualización del empleado una vez termina 
-     * con la llamada que esta atendiendo y hay llamadas en cola
-     * @param o El objeto observable, arg argumentos que se deseen enviar
+     * metodo de entrada de llamadas las asigna al dispatcher y las elimina
+     * 
      */
 	
 	private synchronized void getCallOfIncomingCalls(){

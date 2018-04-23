@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="17.993" errors="0" skipped="0" tests="2" name="almundo.com.model.ModelTest">
+<testsuite failures="0" time="17.99" errors="0" skipped="0" tests="2" name="almundo.com.model.ModelTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_80\jre\bin"/>
@@ -63,6 +63,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="8.992" classname="almundo.com.model.ModelTest" name="patternObserver"/>
-  <testcase time="9.001" classname="almundo.com.model.ModelTest" name="patternObserverQueue"/>
+  <testcase time="8.99" classname="almundo.com.model.ModelTest" name="patternObserver"/>
+  <testcase time="9" classname="almundo.com.model.ModelTest" name="patternObserverQueue"/>
 </testsuite>

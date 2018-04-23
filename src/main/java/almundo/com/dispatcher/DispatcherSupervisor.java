@@ -15,17 +15,18 @@ public class DispatcherSupervisor extends Dispatcher{
 	private Call call;
 	private boolean callInQueue;
 	
-	public void dispatchCall(){
+	public Boolean dispatchCall(){
 		for(Employee employee: supervisors){
 			if (employee.getCall() == null){
 				employee.addObserver(this);
 				employee.setCall(call);
 				System.out.println(employee.getName() + " answer call "+ call.getId());
 				employee.answerCall();
+				return true;
 			}
 		}
-		dispatcher.setCall(this.getCall());	
-
+		dispatcher.setCall(this.getCall());
+		return dispatcher.dispatchCall();
 	}
 	
 	public void setNext(Dispatcher dispatcher) {
