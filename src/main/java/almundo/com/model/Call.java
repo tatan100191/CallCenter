@@ -10,13 +10,18 @@ public class Call extends Observable implements Runnable{
 		this.duration = duration;
 		this.id = id;
 	}
+	
+	/**
+     * metodo donde se realiza la llamada y se notifica su cambio una vez terminada
+     * 
+     */
 	public void run() {
 		try {
-			System.out.println("Start call");
+			System.out.println("Start call " + id);
 			Thread.sleep(this.duration * 1000);
 			setChanged();
+			System.out.println("End call " + id);
 			notifyObservers(id);
-			System.out.println("End call");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

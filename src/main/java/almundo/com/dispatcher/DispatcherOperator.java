@@ -1,11 +1,9 @@
 package almundo.com.dispatcher;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import almundo.com.model.Call;
-import almundo.com.model.Employee;
+import almundo.com.model.IncomingCalls;
 import almundo.com.model.Operator;
 
 public class DispatcherOperator extends Dispatcher{
@@ -13,28 +11,23 @@ public class DispatcherOperator extends Dispatcher{
 	private Dispatcher dispatcher;
 	private List<Operator> operators;
 	private Call call;
-	private boolean callInQueue;
-	private List<Call> calls;
 	
-	public Boolean dispatchCall(){
+	/**
+     * metodo principal de la cadena de responsabilidad el cual tiene la función de asignar la llamada 
+     * a un empleado y realizar 
+     * @param o El objeto observable, arg argumentos que se deseen enviar
+     */
+	public void dispatchCall(){
+		getCallOfIncomingCalls();
 		for(Operator employee: operators){
-			if (employee.getCall() == null){
-				employee.addObserver(this);
-				employee.setCall(call);
-				System.out.println(employee.getName() + " answer call "+ call.getId());
-				employee.answerCall();
-				return true;
-			}
+				if (employee.getCall() == null){
+					employee.addObserver(this);
+					employee.setCall(call);
+					System.out.println(employee.getName() + " answer call "+ call.getId());
+					employee.answerCall();
+				}
 		}
-		if(callInQueue){
-			List<Call> calls = this.getCalls() == null? new ArrayList<Call>(): this.getCalls();
-			this.setCalls(calls);
-			this.addQueueCall(calls);
-		}else{
-			dispatcher.setCall(this.getCall());
-			return dispatcher.dispatchCall();
-		}
-		return true;
+		dispatcher.setCall(this.getCall());
 	}
 	
 
@@ -47,12 +40,6 @@ public class DispatcherOperator extends Dispatcher{
 		this.operators = operators;
 	}
 
-
-	public void addQueueCall(List<Call> calls) {	
-		this.getCalls().add(call);
-		dispatcher.addQueueCall(calls);
-	}
-
 	public Call getCall() {
 		return call;
 	}
@@ -60,25 +47,7 @@ public class DispatcherOperator extends Dispatcher{
 	public void setCall(Call call) {
 		this.call = call;
 	}
-
-	public boolean isCallInQueue() {
-		return callInQueue;
-	}
-
-	public void setCallInQueue(boolean callInQueue) {
-		this.callInQueue = callInQueue;
-	}
 	
-	public List<Call> getCalls() {
-		return calls;
-	}
-
-
-	public void setCalls(List<Call> calls) {
-		this.calls = calls;
-	}
-
-
 	public void setNext(Dispatcher dispatcher) {
 		this.dispatcher = dispatcher; 
 	}
@@ -91,20 +60,19 @@ public class DispatcherOperator extends Dispatcher{
 		this.dispatchCall();
 	}
 	
-	public void update(Observable o, Object arg) {
-		Employee employee = ((Employee) o);
-		if(this.getCalls() != null && !this.getCalls().isEmpty()){
-			employee.setCall(this.getCalls().get(0));
-			this.setCall(this.getCalls().get(0));
-			this.getCalls().remove(0);
-			System.out.println(employee.getName() + " answer call "+ employee.getCall().getId());
-			employee.answerCall();
-		}else{
-			employee.setCall(null);
-			this.setCall(null);
+	/**
+     * metodo propio de la clase Observer en la cual se realiza la actualización del empleado una vez termina 
+     * con la llamada que esta atendiendo y hay llamadas en cola
+     * @param o El objeto observable, arg argumentos que se deseen enviar
+     */
+	
+	private synchronized void getCallOfIncomingCalls(){
+		IncomingCalls incomingCalls = IncomingCalls.getInstance();
+		if(!incomingCalls.getIncomingCalls().isEmpty()){
+			call = incomingCalls.getIncomingCalls().get(0);
+			incomingCalls.getIncomingCalls().remove(0);
 		}
 	}
-	
 	
 
 }

@@ -40,9 +40,13 @@ public abstract class Employee extends Observable implements Observer {
 		}
 		return true;
 	}
-	
+	/**
+     * metodo donde se deja al empleado sin llamada y se notifica para tomar alguna llamada
+     * de la cola si esta no se encuentra vacia
+     * 
+     */
 	public void update(Observable o, Object arg) {
-		if(this.call.getId()== (Integer)arg){
+		if(this.call != null && this.call.getId()== (Integer)arg){
 			this.call = null;
 			setChanged();
 			notifyObservers();
