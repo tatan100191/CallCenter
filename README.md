@@ -8,8 +8,7 @@ Se realizo la prueba utilizando los patrones de diseño:
 	
 Descargar proyecto del repositorio
 Correr pruebas no se hizo clase Main debido a que el Test DispatcherTest contiene la generación de llamadas y de los dispatcher
-path: 
- ...\CallCenter
+ path: ...\CallCenter  
  mvn compile
  mvn test
  

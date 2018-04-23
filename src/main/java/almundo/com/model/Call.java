@@ -20,8 +20,8 @@ public class Call extends Observable implements Runnable{
 			System.out.println("Start call " + id);
 			Thread.sleep(this.duration * 1000);
 			setChanged();
-			System.out.println("End call " + id);
 			notifyObservers(id);
+			System.out.println("End call " + id);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

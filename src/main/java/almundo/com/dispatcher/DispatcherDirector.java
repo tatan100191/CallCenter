@@ -11,16 +11,18 @@ public class DispatcherDirector extends Dispatcher{
 	private List<Director> directors;
 	private Call call;
 	
-	public void dispatchCall(){
+	public Boolean dispatchCall(){
 		for(Employee employee: directors){
 			if (employee.getCall() == null){
 				employee.addObserver(this);
 				employee.setCall(call);
 				System.out.println(employee.getName() + " answer call "+ call.getId());
 				employee.answerCall();
+				return true;
 			}
 		}
 		this.getCalls().add(call);
+		return true;
 	}
 
 	public List<Director> getDirectors() {
